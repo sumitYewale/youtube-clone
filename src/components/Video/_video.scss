@@ -1,0 +1,144 @@
+@import "../../_base.scss";
+
+.video {
+    &__store {
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        // background-color: red;
+        margin-bottom: 20px;
+    }
+
+    &__thumbnailStore {
+        .thumbnail__container {
+            height: auto;
+            width: 100%;
+            position: relative;
+
+            .thumbnail__show {
+                height: 100%;
+                width: 100%;
+                position: relative;
+                top: 0%;
+                left: 0%;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .video__duration {
+                position: absolute;
+                z-index: 1;
+                bottom: 0px;
+                right: 0px;
+                margin: 5px;
+                color: #ffffff;
+                font-weight: 500;
+                text-align: center;
+                background-color: #000000b8;
+                font-size: 0.8rem;
+                padding: 1px 4px;
+                border-radius: 2px;
+                letter-spacing: 0.4px;
+            }
+        }
+    }
+
+    &__title {
+        display: flex;
+        padding: 20px 2px;
+
+        .channel__thumbnail {
+            height: 40px;
+            width: 40px;
+            background-color: #c3c3c3;
+            border-radius: 50%;
+            overflow: hidden;
+
+            img{
+                width: 100%;
+            }
+        }
+
+        .title {
+            flex: 1 1;
+            margin-left: 5px;
+            line-height: normal;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            a{
+                width:100%;
+                height: 30px;
+            }
+
+            b {
+                color: #f3f3f3;
+                font-size: 0.9rem;
+                font-weight: 500;
+                
+                @include line-clamp(2)
+            }
+
+            .video__channelName {
+                display: flex;
+                align-items: center;
+                p {
+                    color: #b1b1b1;
+                    font-size: 0.9rem;
+                    font-weight: 400;
+                    margin: 10px 0px;
+                    margin-bottom: 0px;
+
+                    @include line-clamp(1)
+                }
+
+                .verified{
+                    height: 12px;
+                    width: 12px;
+                    border-radius: 50%;
+                    margin-left: 6px;
+                    background-color: #c3c3c3;
+                    color: #000000;
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            .video__channelDetails{
+                height: 20px;
+                width: 100%;
+                // margin-top: -10px;
+                font-size: 0.8rem;
+                display: flex;
+                align-items: center;
+                
+                p{
+                    margin-bottom: 0px;
+                }
+
+                span{
+                    height: 6px;
+                    width: 6px;
+                    border-radius: 50%;
+                    background-color: #c3c3c3;
+                    display: block;
+                    margin-left: 10px;
+                }
+
+                .timestamp{
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    &__channelDetails {
+        display: flex;
+    }
+}

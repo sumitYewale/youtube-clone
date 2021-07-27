@@ -1,0 +1,85 @@
+@import "../../_base.scss";
+
+.app__container .app__main{
+    height: 90vh;
+}
+
+.login {
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    &__container {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40%;
+        height: 60vh;
+        background-color: #0e0f1082;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2px;
+
+        img {
+            width: 170px;
+        }
+
+        button {
+            padding: 0.6rem 1rem;
+            color: #ffffff;
+            background-color: #df2a25;
+            border: 1px solid #de2925;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            outline: none;
+
+            &:focus , &:hover{
+                outline: none;
+            }
+        }
+
+        p {
+            margin-top: 20px;
+            font-weight: 600;
+            color: $text-color;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .login {
+        width: 100%;
+
+        &__container {
+            width: 50%;
+        }
+    }
+}
+@media screen and (max-width: $breakpoint-small){
+    .login {
+        width: 100%;
+
+        &__container {
+            width: 70%;
+
+            p{
+                text-align: center;
+                padding: 0px 20px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:$breakpoint-extra-small){
+    .login{
+
+        &__container{
+            width: 90%;
+
+        }
+    }
+}

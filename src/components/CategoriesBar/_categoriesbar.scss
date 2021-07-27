@@ -1,0 +1,58 @@
+@import "../../_base.scss";
+
+.categories_bar {
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    justify-content: flex-start;
+    align-self: center;
+    width:calc(100% - 250px);
+    padding: 20px 0px;
+    position: relative;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar-track {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        display: none;
+    }
+
+    &__element {
+        font-size: 0.9rem;
+        margin-right: 20px;
+        white-space: nowrap;
+        border-radius: 25px;
+        border: 1px solid $text-color;
+        padding: 0.3rem 0.8rem;
+        cursor: pointer;
+        background-color: #3e3e3e;
+
+        &.active, &:focus{
+            background-color: $text-color;
+            color: $black-primary;
+        }
+
+        &.active:hover{
+            background-color: #cacaca;
+            color: $black-primary;
+        }
+
+        &:hover{
+            background-color: #616161;
+            color: #b1bdb4;
+        }
+    }
+}
+
+@media screen and (max-width:$breakpoint-medium){
+    .categories_bar{
+        width:calc(100%);
+    }
+}
