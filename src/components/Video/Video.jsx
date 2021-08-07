@@ -2,11 +2,12 @@ import React from 'react'
 import './_video.scss'
 
 //import { FaCheck } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import request from '../../api'
 import moment from 'moment'
 import numeral from 'numeral'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function Video({ video }) {
     
@@ -14,35 +15,41 @@ function Video({ video }) {
     const [duration, setDuration] = useState('');
     const [channelThumbnail, setChannelThumbnail] = useState("");
 
+    const history = useHistory();
+
     useEffect(() => {
         try {
             const getVideoStaticticsandCOntentDetails = async () => {
-                // try {
-                //     const { data: { items } } = await request.get('/videos', {
-                //         params: {
-                //             part: 'contentDetails,statistics',
-                //             id: typeof video.id == "string" ? video.id : video.id.videoId
-                //         }
-                //     })
+                try {
+                    const { data: { items } } = await request.get('/videos', {
+                        params: {
+                            part: 'contentDetails,statistics',
+                            id: typeof video.id == "string" ? video.id : video.id.videoId
+                        }
+                    })
                     
-                    
-                //     const seconds = moment.duration(items[0].contentDetails.duration).asSeconds();
-                //     const _duration = moment.utc(seconds * 1000).format("mm:ss")
-                //     setDuration(_duration);
-                //     setView(items[0].statistics.viewCount);
-                // } catch (error) {
-                //     console.log(error.message);
-                // }
-                
+                    const seconds = moment.duration(items[0].contentDetails.duration).asSeconds();
+                    const _duration = moment.utc(seconds * 1000).format("mm:ss")
+                    setDuration(_duration);
+                    setView(items[0].statistics.viewCount);
+                } catch (error) {
+                    console.log(error.message);
+                }
             }
             getVideoStaticticsandCOntentDetails()
         } catch (error) {
             console.log(error.message);
         }
+       
     }, [video.id , view ,duration])
 
+    const videoClickHandler = () => {
+        const id = typeof video.id == "string" ? video.id : video.id.videoId
+        history.push(`/watch/${id}`)
+    }
 
     useEffect(() => {
+        const ac = new AbortController();
         try {
             const getChannelIcon = async () => {
                 try {
@@ -55,25 +62,29 @@ function Video({ video }) {
                     setChannelThumbnail(items[0].snippet.thumbnails.medium.url);    
                 } catch (error) {
                     console.log(error.message)
-                }
-                
+                }  
             }
             getChannelIcon()
         } catch (error) {
             console.log(error.message)
         }
+        return(()=>{
+            ac.abort();
+        })
     }, [video.snippet.channelId ,channelThumbnail]);
 
     
 
     return (
-        <div className="video" >
+        <div className="video"  onClick={videoClickHandler} >
             <div className="video__store">
                 <div className="video__thumbnailStore" >
                     <div className="thumbnail__container">
                         <div className="thumbnail__show">
                             <Link to="">
-                                <img src={video.snippet.thumbnails.medium.url} alt="" />
+                                <div>
+                                <LazyLoadImage src={video.snippet.thumbnails.medium.url} alt="" effect="blur" />
+                                </div>
                             </Link>
                         </div>
                         <div className="video__duration">
@@ -84,7 +95,7 @@ function Video({ video }) {
                 <div className="video__title">
                     <div className="channel__thumbnail">
                         <Link to="">
-                            <img src={channelThumbnail} alt="" />
+                            <LazyLoadImage src={channelThumbnail} alt="" effect="blur" />
                         </Link>
                     </div>
                     <div className="title">

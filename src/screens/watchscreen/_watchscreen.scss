@@ -1,0 +1,42 @@
+@import '../../_base.scss';
+
+.player{
+    padding: 20px 20px;
+    
+    &__container{
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        height: 0;
+
+        iframe{
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+    }
+}
+
+
+@media screen and (max-width: $breakpoint-small){
+    .player{
+        padding: 20px 5px;
+        
+        &__container{
+            height: 50vw;
+        }
+    }
+}
+
+
+@media screen and (max-width: $breakpoint-extra-small){
+    .player{
+        padding: 20px 5px;
+        
+        &__container{
+            height: 50vw;
+        }
+    }
+}

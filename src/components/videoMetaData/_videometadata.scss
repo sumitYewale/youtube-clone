@@ -1,0 +1,233 @@
+@import "../../_base.scss";
+
+.videoM {
+    height: auto;
+    width: 100%;
+    margin-top: 10px;
+
+    &__title {
+        width: 100%;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+
+        p {
+            margin-top: 10px;
+            padding: 0px 0px;
+            margin-bottom: 0px;
+            font-size: 1.2rem;
+        }
+    }
+
+    &__otherDetails {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 5px;
+        align-items: flex-start;
+        border-bottom: 1px solid #d8d8d826;
+
+        .statisticsDetails {
+            width: auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            align-items: center;
+            font-weight: 200;
+
+            .divider {
+                height: 4px;
+                width: 4px;
+                background-color: lightgray;
+                border-radius: 50%;
+                margin: 0px 10px;
+            }
+        }
+
+        .activityContainer {
+            width: auto;
+            display: flex;
+
+            button {
+                display: flex;
+                background-color: transparent;
+                border: none;
+                color: $text-color;
+                border-bottom: 1px solid;
+                padding: 10px;
+                align-items: center;
+
+                &:focus,
+                &:hover {
+                    color: #fff;
+                    border-color: #cdcecd;
+                    outline: none;
+                }
+
+                span {
+                    margin-left: 8px;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    &__channelDetails {
+        min-height: auto;
+        padding: 10px 0px;
+        border-bottom: 1px solid #d8d8d826;
+        position: relative;
+
+        .channel__subscribeButton {
+            height: auto;
+            width: 100%;
+            display: block;
+            position: relative;
+
+            .channelIconandName {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+
+                .channelIcon {
+                    height: 50px;
+                    width: 50px;
+                    margin-top: 0px;
+
+                    img {
+                        height: 50px;
+                        width: 50px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .channelDetails{
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    align-items: center;
+
+                    .channelNameSubDetails{
+                        margin-left: 10px;
+
+                        .channelHeading {
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                            margin-bottom: 0px;
+                        }
+    
+                        .subscriberCount {
+                            margin-bottom: 0px;
+                            font-size: 0.75rem;
+                        }
+                    }
+                }
+
+                .channelName {
+                    height: auto;
+                    display: block;
+                    width: calc(100% - 60px);
+                    margin-left: 60px;
+                    word-break: break-all;
+
+                    .channel_description {
+                        margin-top: 20px;
+                    }
+
+                    .channel_description {
+                        font-size: 0.9rem;
+                        width: 100%;
+                        height: auto;
+                        white-space: break-spaces;
+
+                        .show_more_click {
+                            font-weight: 600;
+                            color: $text-color;
+                            width: 100%;
+                            display: block;
+                            margin: 20px 0px;
+                        }
+                    }
+                }
+            }
+
+            .subscribeButtonContainer {
+                top: 0px;
+                right: 0px;
+                position: absolute;
+
+                button {
+                    background-color: #c00;
+                    color: #fff;
+                    border: none;
+                    padding: 6px 25px;
+                    height: fit-content;
+                    font-size: 0.9rem;
+                    text-transform: uppercase;
+
+                    &:focus,
+                    &:hover {
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .videoM__otherDetails {
+        align-items: center;
+
+        .statisticsDetails {
+            span {
+                display: none;
+            }
+
+            .statistics__postedDate {
+                display: none;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-extra-small) {
+    .player {
+        padding: 20px 0px;
+        .videoM__otherDetails {
+            align-items: center;
+
+            .statisticsDetails {
+                font-size: 0.8rem;
+
+                .statistics__viewCount {
+                    font-size: 1rem;
+                }
+
+                span {
+                    display: none;
+                }
+
+                .statistics__postedDate {
+                    display: none;
+                }
+            }
+        }
+
+        .videoM__channelDetails {
+            .channel__subscribeButton {
+                .channelIconandName {
+                    display: block;
+
+                    .channelName {
+                        margin-left: 0px;
+                    }
+                }
+            }
+        }
+    }
+}

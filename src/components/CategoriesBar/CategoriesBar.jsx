@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './_categoriesbar.scss'
-import {getSearchCategoryVideos} from '../../redux/actions/video.action'
+import {mostPopularVideos ,getSearchCategoryVideos} from '../../redux/actions/video.action'
 import { useDispatch } from 'react-redux'
 
 const keywords = [
@@ -10,11 +10,17 @@ const keywords = [
 function CategoriesBar() {
 
     const dispatch = useDispatch()
-
+    
     const [activeElement, setActiveElement] = useState("All");
     const activeElementHandler = (value) => {
+        sessionStorage.setItem('fetch-youtube',false)
         setActiveElement(value);
-        dispatch(getSearchCategoryVideos(value));
+        if(value === "All"){
+            dispatch(mostPopularVideos());
+        }
+        else{
+            dispatch(getSearchCategoryVideos(value));
+        }
     }
 
     return (

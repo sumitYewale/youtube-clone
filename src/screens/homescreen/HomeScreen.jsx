@@ -1,23 +1,24 @@
 import React, { useEffect } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import CategoriesBar from '../../components/CategoriesBar/CategoriesBar'
 import Video from '../../components/Video/Video'
+import Skeletons from '../../components/Skeletons/Skeletons'
 
-import { mostPopularVideos } from '../../redux/actions/video.action'
+import { mostPopularVideos , getSearchCategoryVideos } from '../../redux/actions/video.action'
 import InfiniteScroll from 'react-infinite-scroll-component'
-function HomeScreen() {
 
-    const authState = useSelector(state => state.auth);
+function HomeScreen() {
 
     const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(mostPopularVideos('via effect'));
+        dispatch(mostPopularVideos());
     }, [dispatch]);
 
+    const authState = useSelector(state => state.auth);
     useEffect(() => {
         if (!authState.accessToken) {
             history.push("/login");
@@ -27,8 +28,16 @@ function HomeScreen() {
     const videoState = useSelector(state => state.video);
 
     const fetchData = () => {
-        dispatch(mostPopularVideos('via fetchdata'));
+        sessionStorage.setItem('fetch-youtube',false)
+        if(videoState.category === "All"){
+            dispatch(mostPopularVideos(videoState.pageToken));
+        }
+        else{
+            dispatch(getSearchCategoryVideos(videoState.category));
+        }
     }
+
+    
     return (
         <>
             <div className="category_trackContainer">
@@ -39,28 +48,25 @@ function HomeScreen() {
             <div className="video__collectionParent">
                 <Container fluid>
                     <InfiniteScroll
-                        dataLength={
-                            (!videoState.loading && videoState.videos.length !== 0) 
-                            ? videoState.videos.length : 10}
-                        next={fetchData} hasMore={true}
+                        dataLength={videoState.videos.length}
+                        next={fetchData} 
+                        hasMore={true}
                         loader={
-                            <div className="spinner-border mx-auto text-danger d-block" ></div>
+                            [...Array(20)].map((value , index) => (
+                                <Col xl={3} lg={4} md={6} sm={6} xs={12} key={index} >
+                                    <Skeletons />
+                                </Col>
+                            ))
                         }
                         className="row"
                     >
-                        {/* <Row> */}
                         {
-                            
-
-                            (!videoState.loading && videoState.videos.length !== 0) ?
-                                videoState.videos.map((value, index) => (
-                                    <Col xl={3} lg={4} md={6} sm={6} xs={12} key={index} >
-                                        <Video video={value} />
-                                    </Col>
-                                ))
-                                : console.log("error found")
+                            videoState.videos.map((value, index) => (
+                                <Col xl={3} lg={4} md={6} sm={6} xs={12} key={index} >
+                                    <Video video={value} />
+                                </Col>
+                            ))
                         }
-                        {/* </Row> */}
                     </InfiniteScroll>
                 </Container>
             </div>
